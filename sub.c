@@ -8,12 +8,18 @@
  */
 void sub_opcode(stack_t **stack, unsigned int line_number)
 {
-	if (!stack || !*stack || !(*stack)->next)
+	stack_t *top1 = *stack;
+	stack_t *top2 = top1->next;
+
+	if (*stack == NULL || (*stack)->next == NULL)
 	{
-		fprintf(stderr, "L%d: can't sub, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't sub, stack too short\n", line_number);
 		cleanup_and_exit(*stack);
 	}
 
-	(*stack)->next->n -= (*stack)->n;
-	pop_opcode(stack, line_number);
+	top2->n -= top1->n;
+	*stack = top2;
+	(*stack)->prev = NULL;
+
+	free(top1);
 }

@@ -51,6 +51,7 @@ typedef struct bus_s
 	FILE *file;
 	char *content;
 	char *argument;
+	int lifo;
 } bus_t;
 
 extern bus_t bus;
@@ -70,5 +71,14 @@ void add_opcode(stack_t **stack, unsigned int line_number);
 void nop_opcode(stack_t **stack, unsigned int line_number);
 void sub_opcode(stack_t **stack, unsigned int line_number);
 void div_opcode(stack_t **stack, unsigned int line_number);
+void add_node_to_queue(stack_t **stack, int value);
+void mul_opcode(stack_t **stack, unsigned int line_number);
+void mod_opcode(stack_t **stack, unsigned int line_number);
+void pchar_opcode(stack_t **stack, unsigned int line_number);
+void pstr_opcode(stack_t **stack, unsigned int line_number);
+void rotl_opcode(stack_t **stack, unsigned int line_number);
+void rotr_opcode(stack_t **stack, unsigned int line_number);
+void stack_opcode(stack_t **stack, unsigned int line_number);
+void queue_opcode(stack_t **stack, unsigned int line_number);
 
 #endif /* MONTY_H */

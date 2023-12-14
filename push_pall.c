@@ -7,7 +7,7 @@
  */
 void push_opcode(stack_t **stack, unsigned int line_number)
 {
-	int value;
+	int value, j = 0, flag = 0;
 
 	if (!bus.argument)
 	{
@@ -15,20 +15,50 @@ void push_opcode(stack_t **stack, unsigned int line_number)
 		cleanup_and_exit(*stack);
 	}
 
+	if (bus.argument[0] == '-')
+		j++;
+
+	for (; bus.argument[j] != '\0'; j++)
+	{
+		if (bus.argument[j] < '0' || bus.argument[j] > '9')
+		{
+			flag = 1;
+			break;
+		}
+	}
+
+	if (flag == 1)
+	{
+		fprintf(stderr, "L%d: usage: push integer\n", line_number);
+		cleanup_and_exit(*stack);
+	}
+
 	value = atoi(bus.argument);
-	add_node_to_stack(stack, value);
+	if (bus.lifo == 0)
+		add_node_to_stack(stack, value);
+	else
+		add_node_to_queue(stack, value);
 }
 
 /**
  * pall_opcode - Prints all values on the stack
  * @stack: Pointer to the head of the stack
- * @line_number: Not used
+ * @line_number: Not used;
  */
 void pall_opcode(stack_t **stack, unsigned int line_number)
 {
+	stack_t *h = *stack;
+
 	(void)line_number;
 
-	print_stack(*stack);
+	if (h == NULL)
+		return;
+
+	while (h)
+	{
+		printf("%d\n", h->n);
+		h = h->next;
+	}
 }
 
 /**

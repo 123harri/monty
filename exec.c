@@ -12,6 +12,14 @@ int execute_opcode(char *line_content, stack_t **stack_head,
 {
 	instruction_t opcodes[] = {
 		{"push", push_opcode}, {"pall", pall_opcode},
+		{"pint", pint_opcode}, {"pop", pop_opcode},
+		{"swap", swap_opcode}, {"add", add_opcode},
+		{"nop", nop_opcode}, {"sub", sub_opcode},
+		{"div", div_opcode}, {"pchar", pchar_opcode},
+		{"mul", mul_opcode}, {"mod", mod_opcode},
+		{"pstr", pstr_opcode}, {"rotl", rotl_opcode},
+		{"rotr", rotr_opcode}, {"stack", stack_opcode},
+		{"queue", queue_opcode},
 		{NULL, NULL}
 	};
 	unsigned int index = 0;
